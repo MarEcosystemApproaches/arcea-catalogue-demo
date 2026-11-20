@@ -1,0 +1,5 @@
+greenland-halibut-biomass
+about-indicator
+view-data
+automated-analyses
+get-the-data

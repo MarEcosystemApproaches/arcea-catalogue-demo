@@ -1,0 +1,32 @@
+---
+title: "Arcea Catalogue Template"
+author: "Jake Lawlor"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This is an example catalogue structure for EA data from the Arctic region.
+biblio-style: apalike
+csl: chicago-fullnote-bibliography.csl
+---
+
+# About {.unnumbered}
+
+This is a demonstration bookdown page for the `arcea` R package. Here, the bookdown would be organized into separate chapters for each indicator or group of similar indicators, and files for each chapter would be stored in the chapters/ folder. Individual chapter folders would need to be explicitly listed in \_bookdown.yml to appear in the rendered book.
+
+```{r general-setup, echo=F, warning=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = F, message = F, warning = F)
+library(arcea)
+library(ggplot2)
+```
+
+```{r}
+can <- rnaturalearth::ne_countries(country = "Canada")
+ggplot(data = can) + geom_sf() + theme_void()
+
+## add EEZ from new breakout room R package here ##
+
+```

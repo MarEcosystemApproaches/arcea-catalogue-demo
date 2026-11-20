@@ -1,0 +1,157 @@
+<!-- Indicator Chapter for Greenland Halibut -->
+
+```{r setup-halibut, echo=FALSE, warning=FALSE, message=FALSE}
+
+# get dataset
+library(arcea)
+library(ggplot2)
+
+data("greenland_halibut_biomass")
+
+data <- greenland_halibut_biomass
+
+```
+
+<!------- Header Section -------------->
+
+<!-- Title -->
+
+# Greenland Halibut Biomass
+
+<!-- Metadata -->
+
+**Data Type:** Tabular Data
+
+**Spatial Scope:** Arctic Bioregion from \_\_ to \_\_
+
+**Duration** `r paste(range(data$Year), collapse = "-")`
+
+**Source:** Something something fish survey \_\_\_
+
+<!--**Contact:** ADD CONTACT-->
+
+<!----------- Intro Section -------------->
+
+## About Indicator
+
+Greeland Halibut is a major fishery in the region ... blah blah
+
+<!----------- Plots Section -------------->
+
+## View Data
+
+This section would use automated plotting functions specific to the package, such as `plot()` in `marea`. Below is a demonstration of a default static plot to visualize the data.
+
+```{r plot-halibut, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+theme_set(theme_bw())
+
+p1 <- data |> 
+  ggplot(aes(x = Year,
+             y = Index)) +
+
+  geom_line() + 
+  geom_point() +
+  theme(  plot.margin = margin(1,1,1,1))
+
+p2 <- data |> 
+  ggplot(aes(x = Year,
+             y = Index.CV)) +
+  geom_line() + 
+  geom_point() +
+  theme(axis.title.x = element_blank(),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.ticks.length.x = unit(0, "mm"),
+        plot.margin = margin(1,1,1,1)) 
+
+common_title <-  cowplot::ggdraw() + 
+  cowplot::draw_label(
+    "Greenland Halibut Biomass and CV",
+    x = 0,
+    hjust = 0,
+    size = 16
+  )
+
+p <- cowplot::plot_grid(
+  common_title,
+  p2,
+  p1,
+  ncol = 1,
+  
+  align = "v",
+  rel_heights = c(.1,.25, .75)) 
+
+p
+
+```
+
+Alternatively, convert arcea data to marea object to use marea default plots:
+
+```{r marea-plot-halibut}
+
+library(marea)
+
+# convert to marea object
+halibut_ea <- as_ea_data(
+  data,
+  value_col = c("Index","Index.CV"),
+  data_type = "Greenland Habitat Biomass",
+  region = "Arctic",
+  location_descriptor = "Arctic regions: ___",
+  units = "tonnes(?)",
+  species = "Greenland Halibut"
+)
+
+# use marea plot:
+p1.marea <- plot(halibut_ea)
+
+p2.marea <- plot(halibut_ea, value_col = "Index.CV_value") +
+  labs(x = NULL,
+       y = "Index CV",
+       title = "Halibut Biomass Coefficient of Variation for Arctic",
+       subtitle = NULL)
+
+# merge plots
+pfull.marea <- cowplot::plot_grid(
+  p2.marea,
+  p1.marea + labs(subtitle = NULL),
+  ncol = 1,
+  
+  align = "v",
+  rel_heights = c(.3, .7)) 
+
+pfull.marea
+
+
+```
+
+Or, we could add a custom interactive visualizations like in the marea catalogue
+
+```{r}
+
+# insert code for interactive vis here
+
+```
+
+<!----------- Analysis Section -------------->
+
+## Automated Analyses
+
+Here, we would enter some automated analyses of package data. Custom functions in the `arcea` package, or functions borrowed from other packages like `marea` might help to analyze the data using methods relevant to the target variables. For example, here, halibut biomass and halibut biomass CV might have different computational needs for relevant analysis.
+
+```{r}
+
+# insert code for trends
+
+```
+
+<!----------- Data Access Section -------------->
+
+## Get the Data
+
+```{r get-data-halibut, include=T, echo=T, eval=F}
+library(arcea)
+data('greenland_halibut_biomass')
+plot(greenland_halibut_biomass)
+```
