@@ -4,13 +4,9 @@ author: "Jake Lawlor"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
-bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
-# cover-image: path to the social sharing image like images/cover.jpg
 description: |
   This is an example catalogue structure for EA data from the Arctic region.
 biblio-style: apalike
-csl: chicago-fullnote-bibliography.csl
 ---
 
 # About {.unnumbered}
